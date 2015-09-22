@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="icon" type="image/png" href="http://www.iconshock.com/img_jpg/WINDOWS7/general_extended/jpg/256/weather-forecast_icon.jpg"/>
+    	<title>Weather Report</title>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" type="text/css" href="index.css">
+	    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+   	</head>
+	<body>
+		<div class="container">
+			<br>
+	  		<div class="container-fluid">
+	  			<br>
+  				<h1>Weather Report</h1>
+  				<p>Generates Weather Report for selected cities</p>
+  			</div>
+	  		<br>
+	  		<div id = "myCarousel" class = "carousel slide" data-ride = "carousel">
+	  			<!-- Indicators -->
+	    		<ol class="carousel-indicators">
+	    			{% for city in cities %}
+	    				{% if forloop.counter0 == 0 %}
+	    				<li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+	    				{% else %}
+	    				<li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}"></li>
+	    				{% endif %}
+	    			{% endfor %}
+	     		</ol>
+	    		<!-- Wrapper for slides -->
+	    		<div class = "carousel-inner" role = "listbox">
+
+	    			{% for city in cities %}
+	    				{% if forloop.counter0 == 0 %}
+	    				<div class="item active">
+	    				{% else %}
+	    				<div class="item">
+	    				{% endif %}
+	    					<img src="{{ city.image }}" alt="{{ city.city }}" width="460" height="345" />
+	    					<div class="carousel-caption">
+	    						<h3><a href="#" id="zip-{{ forloop.counter0 }}" data-zipcode="{{ city.zip }}">{{ city.city }}</a></h3>
+	    						<p>Zipcode: {{ city.zip }}</p>
+	    					</div>
+	    				</div>
+	    			{% endfor %}
+
+	      			<!-- Left and right controls -->
+	    			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+	      			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+	      			<span class="sr-only">Previous</span>
+	    			</a>
+	    			<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+	      			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+	      			<span class="sr-only">Next</span>
+	    			</a>
+	  		</div>
+		</div>
+	</body>
+	{% load staticfiles %}
+	<script src="{% static 'weather/weather.js' %}"></script>
+</html>

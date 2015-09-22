@@ -25,9 +25,9 @@ class WunderGround():
 		print url;
 
 		headers ={
-		"Host"		: "api.wunderground.com",
-		"X-Target-URI" : "http://api.wunderground.com",
-		"Connection" : "Keep-Alive"
+			"Host"		: "api.wunderground.com",
+			"X-Target-URI" : "http://api.wunderground.com",
+			"Connection" : "Keep-Alive"
 		}
 
 		result = self.__request(url, headers, 5)
@@ -57,11 +57,4 @@ class Zipcode(models.Model):
 
 		wg = WunderGround(key)
 		data = wg.get_conditions_by_zipcode(self.zipcode)
-
-		if data == None: return "Fail"
-		if data != None:
-			return {
-			    "temp" : data["current_observation"]["temp_f"],
-			    "city" : data["location"]["city"],
-			    "state" : data["location"]["state"]
-			}
+		return data["current_observation"]["temp_f"]
